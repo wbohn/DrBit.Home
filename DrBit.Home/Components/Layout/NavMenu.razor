@@ -1,0 +1,20 @@
+﻿@using DrBit.Home.Config
+@using Microsoft.Extensions.Options
+@inject IOptions<ServiceLinks> ServiceLinks
+
+@foreach (var group in ServiceLinks.Value.Links.GroupBy(x => x.Category))
+{
+    <MudText Typo="Typo.h6" Class="ml-3" Style="padding-top: 9;">@group.Key</MudText>
+
+    <MudNavMenu>
+        @foreach (var link in group)
+        {
+            <MudNavLink Href="@link.Url"
+                        Target="_blank"
+                        Match="NavLinkMatch.Prefix"
+                        Icon="@(typeof(Icons.Material.Filled).GetField(link.Icon)?.GetValue(null) as string)">
+                @link.Title
+            </MudNavLink>
+        }
+    </MudNavMenu>
+}

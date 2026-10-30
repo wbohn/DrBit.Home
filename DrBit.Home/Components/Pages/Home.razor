@@ -1,0 +1,16 @@
+﻿@page "/"
+@using DrBit.Home.Components.Widgets
+@using DrBit.Home.Config
+@using Microsoft.Extensions.Options
+@using MudBlazor
+@inject IOptions<ServiceLinks> ServiceLinks
+
+<MudGrid Justify="Justify.Center" Style="padding: 16px; height: auto">
+    @foreach (var link in ServiceLinks.Value.Links.Where(x => x.Category == "Media"))
+    {
+        <LinkCard Title="@link.Title"
+                  Description="@link.Description"
+                  HrefUrl="@link.Url"
+                  Icon="@(typeof(Icons.Material.Filled).GetField(link.Icon)?.GetValue(null) as string)" />
+    }
+</MudGrid>
