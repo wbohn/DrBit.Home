@@ -25,6 +25,7 @@ RUN dotnet publish "./DrBit.Home.csproj" -c $BUILD_CONFIGURATION -o /app/publish
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
+LABEL org.opencontainers.image.description="Homepage with links to local services"
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "DrBit.Home.dll"]
